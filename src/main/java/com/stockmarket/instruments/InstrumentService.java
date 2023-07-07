@@ -1,5 +1,7 @@
 package com.stockmarket.instruments;
 
+import com.stockmarket.util.MySqlClient;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,20 +9,7 @@ import java.util.List;
 public class InstrumentService
 {
 
-    Connection connection = null;
-
-    public InstrumentService() {
-        try
-        {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/stocks", "root", "rootroot");
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
-    }
-
+    Connection connection = MySqlClient.getConnection();
 
     public Instrument getInstrumentById(int instrumentId) throws Exception
     {

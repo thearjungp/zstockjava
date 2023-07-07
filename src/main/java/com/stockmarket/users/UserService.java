@@ -1,26 +1,14 @@
 package com.stockmarket.users;
 
+import com.stockmarket.util.MySqlClient;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
 
-    Connection connection = null;
-
-    public UserService() {
-        try
-        {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/stocks", "root", "rootroot");
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
-    }
-
-
+    Connection connection = MySqlClient.getConnection();
 
     public User getUserById(int id) throws Exception
     {

@@ -14,4 +14,9 @@ public class CacheSetter
         String key = URLUtil.getFullURI(req);
         redis.setex(key, CacheFilter.EXPIRATION_TIME, responseBody);
     }
+
+    public static void flushCache()
+    {
+        redis.flushAll();
+    }
 }

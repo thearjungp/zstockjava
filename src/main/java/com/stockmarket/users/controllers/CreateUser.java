@@ -38,6 +38,7 @@ public class CreateUser extends HttpServlet {
             try
             {
                 String createdUserMsg = this.userService.createUser(user);
+                CacheSetter.flushCache();
                 OutputUtil.outputResponse(resp,
                         OutputUtil.successObjResponse(createdUserMsg),
                         HttpServletResponse.SC_CREATED);

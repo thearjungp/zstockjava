@@ -46,6 +46,7 @@ public class GetUpdateAndDeleteUserById extends HttpServlet
             try
             {
                 String updatedUserMsg = this.userService.updateUser(reqUser.getId(), user);
+                CacheSetter.flushCache();
                 OutputUtil.outputResponse(resp,
                         OutputUtil.successObjResponse(updatedUserMsg),
                         HttpServletResponse.SC_CREATED);
@@ -70,6 +71,7 @@ public class GetUpdateAndDeleteUserById extends HttpServlet
         try
         {
             String deletedUserMsg = this.userService.deleteUser(reqUser);
+            CacheSetter.flushCache();
             OutputUtil.outputResponse(resp, OutputUtil.successObjResponse(deletedUserMsg), HttpServletResponse.SC_OK);
         }
         catch(Exception e)

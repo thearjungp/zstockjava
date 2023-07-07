@@ -49,6 +49,7 @@ public class GetUpdateAndDeleteInstrument extends HttpServlet
             try
             {
                 String updatedInstrumentMsg = this.instrumentService.updateInstrument(reqInstrument, instrument);
+                CacheSetter.flushCache();
                 OutputUtil.outputResponse(resp, OutputUtil.successObjResponse(updatedInstrumentMsg), HttpServletResponse.SC_CREATED);
             }
             catch(Exception e)
@@ -72,6 +73,7 @@ public class GetUpdateAndDeleteInstrument extends HttpServlet
         try
         {
             String deleteInstrumentMsg = this.instrumentService.deleteInstrument(reqInstrument);
+            CacheSetter.flushCache();
             OutputUtil.outputResponse(resp, OutputUtil.successObjResponse(deleteInstrumentMsg), HttpServletResponse.SC_OK);
 
         } catch (Exception e) {

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stockmarket.users.User;
 import com.stockmarket.users.UserService;
 import com.stockmarket.util.*;
+import jdk.nashorn.internal.runtime.URIUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/user/*"})
 public class GetUpdateAndDeleteUserById extends HttpServlet
@@ -46,7 +49,8 @@ public class GetUpdateAndDeleteUserById extends HttpServlet
             try
             {
                 String updatedUserMsg = this.userService.updateUser(reqUser.getId(), user);
-                CacheSetter.flushCache();
+                CacheSetter.removeKeysFromCache(Arrays.asList("/api/users", URLUtil.getFullURI(req)));
+//                CacheSetter.flushCache();
                 OutputUtil.outputResponse(resp,
                         OutputUtil.successObjResponse(updatedUserMsg),
                         HttpServletResponse.SC_CREATED);
@@ -71,7 +75,8 @@ public class GetUpdateAndDeleteUserById extends HttpServlet
         try
         {
             String deletedUserMsg = this.userService.deleteUser(reqUser);
-            CacheSetter.flushCache();
+            CacheSetter.removeKeysFromCache(Arrays.asList("/api/users", URLUtil.getFullURI(req)));
+//            CacheSetter.flushCache();
             OutputUtil.outputResponse(resp, OutputUtil.successObjResponse(deletedUserMsg), HttpServletResponse.SC_OK);
         }
         catch(Exception e)

@@ -3,10 +3,7 @@ package com.stockmarket.users.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stockmarket.users.User;
 import com.stockmarket.users.UserService;
-import com.stockmarket.util.CacheSetter;
-import com.stockmarket.util.InputUtils;
-import com.stockmarket.util.OutputUtil;
-import com.stockmarket.util.UserDetailValidator;
+import com.stockmarket.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
 @WebServlet(urlPatterns = {"/createuser"})
 public class CreateUser extends HttpServlet {
@@ -38,7 +36,8 @@ public class CreateUser extends HttpServlet {
             try
             {
                 String createdUserMsg = this.userService.createUser(user);
-                CacheSetter.flushCache();
+                CacheSetter.removeKeysFromCache(Arrays.asList("/api/users"));
+//                CacheSetter.flushCache();
                 OutputUtil.outputResponse(resp,
                         OutputUtil.successObjResponse(createdUserMsg),
                         HttpServletResponse.SC_CREATED);

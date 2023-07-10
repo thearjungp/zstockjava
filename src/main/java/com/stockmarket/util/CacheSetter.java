@@ -17,6 +17,14 @@ public class CacheSetter
         redis.setex(key, CacheFilter.EXPIRATION_TIME, responseBody);
     }
 
+    public static void removeKeysFromCache(List<String> keys)
+    {
+        for(String key: keys)
+        {
+            redis.del(key);
+        }
+    }
+
 //    public static void setCacheList(List list, String key) throws JsonProcessingException {
 //        for (Object o : list) {
 //            redis.rpush(key, OutputUtil.convertToJSONString(o));

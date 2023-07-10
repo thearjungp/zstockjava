@@ -31,7 +31,6 @@ public class GetAllInstruments extends HttpServlet
         {
             List<Instrument> instruments = this.instrumentService.getAllInstruments();
             String responseBody = OutputUtil.convertToJSONString(instruments);
-            CacheSetter.setCache(req, responseBody);
             OutputUtil.outputResponse(resp, responseBody, HttpServletResponse.SC_OK);
         }
         catch (SQLException e)

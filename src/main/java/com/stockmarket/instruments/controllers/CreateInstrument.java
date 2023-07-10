@@ -40,7 +40,6 @@ public class CreateInstrument extends HttpServlet
             try
             {
                 String createdInstrumentMsg = this.instrumentService.createInstrument(instrument);
-                CacheSetter.flushCache();
                 OutputUtil.outputResponse(resp, OutputUtil.successObjResponse(createdInstrumentMsg), HttpServletResponse.SC_CREATED);
             }
             catch(Exception e)

@@ -34,7 +34,6 @@ public class GetUpdateAndDeleteInstrument extends HttpServlet
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Instrument instrument = (Instrument) req.getAttribute("instrument");
         String responseBody = OutputUtil.convertToJSONString(instrument);
-        CacheSetter.setCache(req, responseBody);
         OutputUtil.outputResponse(resp, responseBody, HttpServletResponse.SC_OK);
     }
 
@@ -49,7 +48,6 @@ public class GetUpdateAndDeleteInstrument extends HttpServlet
             try
             {
                 String updatedInstrumentMsg = this.instrumentService.updateInstrument(reqInstrument, instrument);
-                CacheSetter.flushCache();
                 OutputUtil.outputResponse(resp, OutputUtil.successObjResponse(updatedInstrumentMsg), HttpServletResponse.SC_CREATED);
             }
             catch(Exception e)
@@ -73,7 +71,6 @@ public class GetUpdateAndDeleteInstrument extends HttpServlet
         try
         {
             String deleteInstrumentMsg = this.instrumentService.deleteInstrument(reqInstrument);
-            CacheSetter.flushCache();
             OutputUtil.outputResponse(resp, OutputUtil.successObjResponse(deleteInstrumentMsg), HttpServletResponse.SC_OK);
 
         } catch (Exception e) {

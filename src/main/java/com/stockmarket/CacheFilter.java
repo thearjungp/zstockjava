@@ -14,7 +14,7 @@ public class CacheFilter implements Filter
 {
 
     private Jedis redis;
-    public static final int EXPIRATION_TIME = 20;
+    public static final int EXPIRATION_TIME = 120;
 
     public CacheFilter()
     {

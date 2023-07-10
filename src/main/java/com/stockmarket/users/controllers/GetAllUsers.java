@@ -1,6 +1,7 @@
 package com.stockmarket.users.controllers;
 
 import com.stockmarket.CacheFilter;
+import com.stockmarket.users.MinimalUser;
 import com.stockmarket.users.User;
 import com.stockmarket.users.UserService;
 import com.stockmarket.util.*;
@@ -28,7 +29,7 @@ public class GetAllUsers extends HttpServlet {
 
         String responseBody = null;
         try {
-            List<User> users = this.userService.getAllUsers();
+            List<MinimalUser> users = this.userService.getAllUsers();
             responseBody = OutputUtil.convertToJSONString(users);
             CacheSetter.setCache(req, responseBody);
             OutputUtil.outputResponse(resp, responseBody, HttpServletResponse.SC_OK);

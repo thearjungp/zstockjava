@@ -36,25 +36,34 @@ public class UserService {
     }
 
 
-    public List<User> getAllUsers() throws SQLException{
+    public List<MinimalUser> getAllUsers() throws SQLException{
 
-        List<User> users = new ArrayList<>();
+        List<MinimalUser> users = new ArrayList<>();
         Statement st = connection.createStatement();
-        ResultSet rs  = st.executeQuery("SELECT * FROM users");
+        ResultSet rs  = st.executeQuery("SELECT user_id, name FROM users");
+
+//        while(rs.next())
+//        {
+//            User user = new User();
+//            user.setId(rs.getInt("user_id"));
+//            user.setName(rs.getString("name"));
+//            user.setEmail(rs.getString("email"));
+//            user.setPhone(rs.getString("phone"));
+//            user.setPan(rs.getString("pan"));
+//            user.setAcntNumber(rs.getString("acnt_number"));
+//            user.setRole(rs.getInt("role"));
+//            user.setAvailableMargin(rs.getFloat("available_margin"));
+//            users.add(user);
+//        }
 
         while(rs.next())
         {
-            User user = new User();
+            MinimalUser user = new MinimalUser();
             user.setId(rs.getInt("user_id"));
             user.setName(rs.getString("name"));
-            user.setEmail(rs.getString("email"));
-            user.setPhone(rs.getString("phone"));
-            user.setPan(rs.getString("pan"));
-            user.setAcntNumber(rs.getString("acnt_number"));
-            user.setRole(rs.getInt("role"));
-            user.setAvailableMargin(rs.getFloat("available_margin"));
             users.add(user);
         }
+
         return users;
     }
 
